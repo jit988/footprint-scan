@@ -1,23 +1,34 @@
-# footprint-scan
+# OSINT Toolkit
 
-footprint-scan is a command-line wrapper that runs popular open-source OSINT tools (Holehe, h8mail, PhoneInfoga, Sherlock, Maigret) from a single command and saves everything in one timestamped results folder.
+Runs holehe, h8mail, PhoneInfoga, Sherlock and Maigret from one command and
+saves everything under `results/<timestamp>/`.
 
-Use it to check your own digital footprint, support authorized security assessments, or do due-diligence research. Works on Kali Linux, Termux (Android) and Docker.
+## Kali / Debian / Ubuntu
+    chmod +x setup.sh run.sh
+    ./setup.sh
+    ./run.sh --authorized --email you@example.com
 
-**Footprint-Scan** is a cybersecurity and Open-Source Intelligence (OSINT) project focused on understanding digital footprints through publicly available information. It demonstrates how digital information can be collected, analyzed, and organized to support cybersecurity awareness and security research.
+## Termux (Android)
+    pkg install -y git
+    git clone <your-repo-url> osint-toolkit && cd osint-toolkit
+    chmod +x setup.sh run.sh
+    ./setup.sh          # slow the first time: lxml and others compile on-device
+    ./run.sh --authorized --username yourhandle
+Tip: run `termux-wake-lock` so Android doesn't kill the install.
 
-The project explores digital footprint analysis, information gathering, domain reconnaissance, and online exposure awareness. It is designed for educational purposes to help learners understand how publicly accessible information contributes to an individual's or organization's digital presence.
+## Docker
+    docker compose build
+    docker compose run --rm osint --authorized --email you@example.com
+    # results appear in ./results on your host
+(Without compose: `docker build -t osint-toolkit .` then
+`docker run --rm -v "$PWD/results:/app/results" osint-toolkit --authorized --username x`)
 
-**Key Features:**
-- Digital footprint awareness
-- OSINT-based information gathering
-- Domain and website reconnaissance
-- Public information analysis
-- Cybersecurity learning and research
+## Options
+    --email  --phone +919876543210  --username  --name "Full Name"
+    --timeout 300    --authorized (required)
 
-**Technology:** Kali Linux | Linux Terminal | OSINT Tools
-
-**Purpose:** Educational and ethical cybersecurity research only. All activities should be performed with proper authorization and respect for privacy.
-
-> **Lawful use only.** Use it on your own data or with written permission.
-> Results are leads, not proof. Never commit the `results/` folder.
+## Lawful use only
+Use only on your own data, or with written permission / a lawful basis
+(pentest scope, due diligence). Do not use it to stalk, harass or impersonate
+anyone. Compiled personal data may be covered by GDPR, India's DPDP Act, etc.
+Results are leads, not proof. Never commit `results/`.

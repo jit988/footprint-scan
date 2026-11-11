@@ -1,0 +1,6 @@
+services:
+  osint:
+    build: .
+    image: osint-toolkit
+    volumes:
+      - ./results:/app/results
